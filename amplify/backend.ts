@@ -1,5 +1,5 @@
 import { defineBackend } from '@aws-amplify/backend';
-import { CfnOutput, Duration, RemovalPolicy } from 'aws-cdk-lib';
+import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
 import { FunctionUrlAuthType, HttpMethod } from 'aws-cdk-lib/aws-lambda';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { BlockPublicAccess, Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
@@ -42,7 +42,6 @@ const cdn = new Distribution(mediaStack, 'MediaCdn', {
     cachePolicy: CachePolicy.CACHING_OPTIMIZED,
   },
   priceClass: PriceClass.PRICE_CLASS_100,
-  errorResponses: [{ httpStatus: 403, responseHttpStatus: 404, ttl: Duration.minutes(5) }],
 });
 new CfnOutput(mediaStack, 'MediaBucketName', { value: bucket.bucketName });
 
