@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import tiers from '../data/sponsors.json';
+import { event, org } from '../data/event';
+
+const money = (n: number) => `$${n.toLocaleString('en-US')}`;
+const sponsorYear = event.status === 'past' ? event.next.year : event.year;
+---
+<Base title="Sponsorship" description="Sponsorship levels for the AFHC Golf Classic, from hole signs to presenting sponsor.">
+  <header class="wrap section pagehead">
+    <h1>Sponsorship</h1>
+    <p class="lede">Put your company's name on the course and help send Howard County students to college. Every level is paid securely through Zeffy, the foundation's fundraising platform.</p>
+    {event.status === 'past' && <p class="note">These are the {event.year} levels. {sponsorYear} levels will be confirmed soon. <a href="/contact-us/">Get in touch</a> to reserve yours early.</p>}
+  </header>
+
+  <nav class="wrap jump" aria-label="Sponsorship levels">
+    <ul>
+      {tiers.map((t) => <li><a href={`#${t.id}`}>{t.name}</a></li>)}
+    </ul>
+  </nav>
+
+  <ol class="wrap tiers">
+    {tiers.map((t) => (
+      <li id={t.id} class="tier">
+        <div class="tier__head">
+          <h2>{t.name}</h2>
+          <p class="tier__price">{t.price ? money(t.price) : 'Any amount'}</p>
+        </div>
+        {t.note && <p class="tier__note">{t.note}</p>}
+        {t.description && <p class="tier__desc">{t.description}</p>}
+        {t.benefits.length > 0 && (
+          <ul class="tier__list">
+            {t.benefits.map((b) => (
+              <li>{b.text}{'sub' in b && b.sub && <ul>{b.sub.map((s) => <li>{s}</li>)}</ul>}</li>
+            ))}
+          </ul>
+        )}
+        {event.status !== 'past' ? (
+          <a class="btn" href={event.zeffyUrl}>{t.price ? `Choose ${t.name.replace(/ Sponsor$/, '')}` : 'Donate'}</a>
+        ) : (
+          <a class="btn btn--ghost" href="/contact-us/">Ask about {sponsorYear}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+
+  <section class="on-dark section closing">
+    <div class="wrap">
+      <h2>Questions about sponsoring?</h2>
+      <p>The {org.name} is happy to talk through packages, logos and signage.</p>
+      <a class="btn" href="/contact-us/">Contact the committee</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pagehead { padding-bottom: 1.5rem; }
+  .pagehead h1 { font-size: var(--s6); line-height: 0.95; }
+  .lede { font-size: var(--s1); line-height: 1.45; }
+  .note { border-left: 4px solid var(--gold); padding-left: 1rem; }
+  .jump ul { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: var(--s-1); }
+  .tiers { list-style: none; padding: 0; margin-block: 1rem 4rem; border-top: 3px solid var(--black); }
+  .tier { padding: 2rem 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 5.5rem; }
+  .tier:target { background: linear-gradient(90deg, rgba(201, 162, 63, 0.18), transparent 70%); }
+  .tier__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 2rem; }
+  .tier h2 { font-size: var(--s3); margin: 0; }
+  .tier__price { margin: 0; font: 400 var(--s4)/1 var(--display); color: var(--fairway); font-variant-numeric: tabular-nums; }
+  .tier__note { color: var(--gold-ink); font-style: italic; margin: 0.25rem 0 0; }
+  .tier__desc { margin-top: 0.75rem; }
+  .tier__list { margin: 1rem 0 1.5rem; padding-left: 1.2em; columns: 1; }
+  .tier__list li { margin-bottom: 0.35rem; break-inside: avoid; }
+  .tier__list ul { margin: 0.3rem 0 0; padding-left: 1.1em; color: var(--muted); }
+  .closing h2 { font-size: var(--s4); }
+  @media (min-width: 900px) { .tier__list { columns: 2; column-gap: 3rem; } }
+</style>

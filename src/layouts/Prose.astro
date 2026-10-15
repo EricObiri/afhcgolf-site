@@ -1,0 +1,25 @@
+---
+// Layout for Markdown pages: frontmatter { title, description, lede?, image? }
+import Base from './Base.astro';
+import { media } from '../lib/media';
+const { frontmatter } = Astro.props;
+---
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <header class="wrap section pagehead">
+    <h1>{frontmatter.heading ?? frontmatter.title}</h1>
+    {frontmatter.lede && <p class="lede">{frontmatter.lede}</p>}
+  </header>
+  {frontmatter.image && (
+    <figure class="wrap fig"><img src={media(frontmatter.image)} alt={frontmatter.imageAlt ?? ''} loading="lazy" /></figure>
+  )}
+  <div class="wrap body"><article class="prose"><slot /></article></div>
+</Base>
+
+<style>
+  .pagehead { padding-bottom: 1.5rem; }
+  .pagehead h1 { font-size: var(--s6); line-height: 0.95; max-width: 14ch; }
+  .lede { font-size: var(--s1); line-height: 1.45; }
+  .fig { margin-block: 0 2.5rem; }
+  .fig img { width: 100%; max-height: 28rem; object-fit: cover; background: var(--rule); }
+  .body { padding-bottom: 5rem; }
+</style>

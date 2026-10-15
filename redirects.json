@@ -1,0 +1,86 @@
+[
+  {
+    "from": "/home-2/",
+    "to": "/"
+  },
+  {
+    "from": "/presenting-sponsor/",
+    "to": "/sponsors/#presenting-sponsor"
+  },
+  {
+    "from": "/corporate-platinum-sponsor/",
+    "to": "/sponsors/#corporate-platinum-sponsor"
+  },
+  {
+    "from": "/corporate-gold-sponsor/",
+    "to": "/sponsors/#corporate-gold-sponsor"
+  },
+  {
+    "from": "/corporate-bronze-sponsor/",
+    "to": "/sponsors/#corporate-bronze-sponsor"
+  },
+  {
+    "from": "/executive-sponsorship/",
+    "to": "/sponsors/#executive-sponsor"
+  },
+  {
+    "from": "/culinary-sponsor/",
+    "to": "/sponsors/#culinary-sponsor"
+  },
+  {
+    "from": "/tournament-ball-sponsorship/",
+    "to": "/sponsors/#tournament-ball-sponsor"
+  },
+  {
+    "from": "/contest-sponsorship/",
+    "to": "/sponsors/#contest-sponsor"
+  },
+  {
+    "from": "/wounded-warrior-sponsor/",
+    "to": "/sponsors/#wounded-warrior-sponsor"
+  },
+  {
+    "from": "/foursome-sponsorship-donation/",
+    "to": "/sponsors/#foursome-sponsor-donation"
+  },
+  {
+    "from": "/hole-sponsor/",
+    "to": "/sponsors/#hole-sponsor"
+  },
+  {
+    "from": "/non-golfer-attendance-sponsor/",
+    "to": "/sponsors/#non-golfer-attendance-sponsor"
+  },
+  {
+    "from": "/black-gold-sponsorship/",
+    "to": "/sponsors/#black-and-gold-donation"
+  },
+  {
+    "from": "/company-gift-card-sponsor/",
+    "to": "/sponsors/"
+  },
+  {
+    "from": "/golfer-registration/",
+    "to": "/tournament-information/#register"
+  },
+  {
+    "from": "/register/",
+    "to": "/tournament-information/#register"
+  },
+  {
+    "from": "/donations/",
+    "to": "/sponsors/#black-and-gold-donation"
+  },
+  {
+    "from": "/scoreboard/",
+    "to": "/leaderboard/"
+  },
+  {
+    "from": "/register-copy/",
+    "to": "/leaderboard/"
+  },
+  {
+    "from": "/confirmation/",
+    "to": "/"
+  }
+]

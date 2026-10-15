@@ -1,0 +1,112 @@
+[
+  {
+    "source": "/home-2/",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/presenting-sponsor/",
+    "target": "/sponsors/#presenting-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/corporate-platinum-sponsor/",
+    "target": "/sponsors/#corporate-platinum-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/corporate-gold-sponsor/",
+    "target": "/sponsors/#corporate-gold-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/corporate-bronze-sponsor/",
+    "target": "/sponsors/#corporate-bronze-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/executive-sponsorship/",
+    "target": "/sponsors/#executive-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/culinary-sponsor/",
+    "target": "/sponsors/#culinary-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/tournament-ball-sponsorship/",
+    "target": "/sponsors/#tournament-ball-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/contest-sponsorship/",
+    "target": "/sponsors/#contest-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/wounded-warrior-sponsor/",
+    "target": "/sponsors/#wounded-warrior-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/foursome-sponsorship-donation/",
+    "target": "/sponsors/#foursome-sponsor-donation",
+    "status": "301"
+  },
+  {
+    "source": "/hole-sponsor/",
+    "target": "/sponsors/#hole-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/non-golfer-attendance-sponsor/",
+    "target": "/sponsors/#non-golfer-attendance-sponsor",
+    "status": "301"
+  },
+  {
+    "source": "/black-gold-sponsorship/",
+    "target": "/sponsors/#black-and-gold-donation",
+    "status": "301"
+  },
+  {
+    "source": "/company-gift-card-sponsor/",
+    "target": "/sponsors/",
+    "status": "301"
+  },
+  {
+    "source": "/golfer-registration/",
+    "target": "/tournament-information/#register",
+    "status": "301"
+  },
+  {
+    "source": "/register/",
+    "target": "/tournament-information/#register",
+    "status": "301"
+  },
+  {
+    "source": "/donations/",
+    "target": "/sponsors/#black-and-gold-donation",
+    "status": "301"
+  },
+  {
+    "source": "/scoreboard/",
+    "target": "/leaderboard/",
+    "status": "301"
+  },
+  {
+    "source": "/register-copy/",
+    "target": "/leaderboard/",
+    "status": "301"
+  },
+  {
+    "source": "/confirmation/",
+    "target": "/",
+    "status": "301"
+  },
+  {
+    "source": "/<*>",
+    "target": "/404/",
+    "status": "404-200"
+  }
+]

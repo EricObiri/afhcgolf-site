@@ -1,0 +1,122 @@
+---
+import Base from '../layouts/Base.astro';
+import { org } from '../data/event';
+const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? '';
+---
+<Base title="Contact us" description="Questions about the AFHC Golf Classic, registration or sponsorship.">
+  <div class="wrap section contact">
+    <header>
+      <h1>Contact us</h1>
+      <p class="lede">Questions about registering, sponsoring or the programs we fund? Send the tournament committee a message and we'll reply by email.</p>
+      <p class="muted">By mail: {org.name}, {org.mailing}</p>
+    </header>
+
+    <form class="form" data-endpoint={endpoint} novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" autocomplete="name" required maxlength="120" />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required maxlength="200" />
+      </div>
+      <div class="field">
+        <label for="phone">Phone <span class="opt">(optional)</span></label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" />
+      </div>
+      <div class="field">
+        <label for="topic">What's it about?</label>
+        <select id="topic" name="topic">
+          <option>Registration</option>
+          <option>Sponsorship</option>
+          <option>Donations</option>
+          <option>Programs and scholarships</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field field--wide">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required maxlength="5000"></textarea>
+      </div>
+      <!-- honeypot: real people never see or fill this -->
+      <div class="hp" aria-hidden="true">
+        <label for="website">Website</label>
+        <input id="website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <p class="form__error" role="alert" hidden></p>
+      <button class="btn" type="submit">Send message</button>
+    </form>
+
+    <div class="sent" hidden tabindex="-1">
+      <h2>Message sent</h2>
+      <p>Thanks for getting in touch. The committee will reply to the email address you gave.</p>
+      <a href="/">Back to the home page</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .contact { display: grid; gap: 2.5rem; align-items: start; }
+  .contact h1 { font-size: var(--s5); line-height: 0.95; }
+  .lede { font-size: var(--s1); line-height: 1.45; }
+  .form { display: grid; gap: 1.25rem; background: var(--paper); border: 2px solid var(--black); padding: clamp(1.25rem, 4vw, 2.25rem); }
+  .field { display: grid; gap: 0.35rem; }
+  label { font: 400 var(--s1)/1 var(--display); }
+  .opt { font: italic var(--s-1) var(--serif); color: var(--muted); }
+  input, select, textarea { font: inherit; font-size: 1rem; padding: 0.7rem 0.8rem; border: 1px solid #8c968f; border-radius: 0; background: var(--paper); color: var(--ink); width: 100%; }
+  input:focus, select:focus, textarea:focus { outline: 3px solid var(--focus); outline-offset: 0; border-color: var(--black); }
+  [aria-invalid='true'] { border-color: #b3261e; box-shadow: inset 4px 0 0 #b3261e; }
+  .hp { position: absolute; left: -9999px; }
+  .form__error { color: #b3261e; margin: 0; }
+  .form .btn { justify-self: start; cursor: pointer; }
+  .form .btn[disabled] { opacity: 0.6; cursor: progress; }
+  .sent { border-left: 6px solid var(--gold); padding: 1.5rem; background: var(--paper); }
+  @media (min-width: 900px) {
+    .contact { grid-template-columns: 2fr 3fr; gap: 4rem; }
+    .form { grid-template-columns: 1fr 1fr; }
+    .field--wide, .form__error, .form .btn { grid-column: 1 / -1; }
+    .sent { grid-column: 2; }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.form')!;
+  const err = form.querySelector<HTMLElement>('.form__error')!;
+  const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+  const sent = document.querySelector<HTMLElement>('.sent')!;
+
+  const fail = (msg: string) => { err.textContent = msg; err.hidden = false; };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.hidden = true;
+    const fields = [...form.querySelectorAll<HTMLInputElement>('[required]')];
+    let firstBad: HTMLInputElement | undefined;
+    for (const f of fields) {
+      const ok = f.checkValidity() && f.value.trim() !== '';
+      f.setAttribute('aria-invalid', String(!ok));
+      if (!ok && !firstBad) firstBad = f;
+    }
+    if (firstBad) {
+      fail('Fill in your name, a valid email address and a message, then send again.');
+      firstBad.focus();
+      return;
+    }
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) { fail('The contact form is not connected yet. Please write to us at the mailing address shown.'); return; }
+
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.hidden = true; sent.hidden = false; sent.focus();
+    } catch {
+      fail('Your message didn’t send. Check your connection and try again.');
+      btn.disabled = false; btn.textContent = 'Send message';
+    }
+  });
+</script>

@@ -1,0 +1,48 @@
+---
+// The event's key facts set as a golf scorecard: header row of "holes", value row underneath.
+import { event } from '../data/event';
+
+const cells = [
+  { label: 'Date', value: event.dateLabel },
+  { label: 'Course', value: event.course, sub: event.courseTown },
+  { label: 'Format', value: event.format },
+  { label: 'Check-in', value: event.checkIn, sub: `Shotgun ${event.shotgun}` },
+  { label: 'Entry', value: `$${event.fees.team} team`, sub: `$${event.fees.golfer} per golfer` },
+];
+---
+<dl class="card" aria-label={`${event.year} tournament details`}>
+  {cells.map((c, i) => (
+    <div class="card__col">
+      <dt><span class="card__no" aria-hidden="true">{i + 1}</span>{c.label}</dt>
+      <dd>{c.value}{c.sub && <small>{c.sub}</small>}</dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .card {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+    background: var(--paper);
+    border: 2px solid var(--black);
+    box-shadow: 6px 6px 0 var(--gold);
+  }
+  .card__col { border-right: 1px solid var(--black); border-bottom: 1px solid var(--black); margin: 0 -1px -1px 0; }
+  dt {
+    display: flex; align-items: baseline; gap: 0.5rem;
+    background: var(--black); color: var(--gold);
+    font: 400 var(--s0)/1 var(--display); letter-spacing: 0.04em;
+    padding: 0.55rem 0.8rem;
+  }
+  .card__no {
+    font-size: var(--s-1); color: #000; background: var(--gold);
+    width: 1.35rem; height: 1.35rem; border-radius: 50%;
+    display: inline-grid; place-items: center; flex: none;
+  }
+  dd {
+    margin: 0; padding: 0.8rem 0.8rem 1rem;
+    font: 400 var(--s2)/1.05 var(--display); color: var(--black);
+  }
+  dd small { display: block; margin-top: 0.35rem; font: 400 var(--s-1)/1.3 var(--serif); color: var(--muted); }
+</style>

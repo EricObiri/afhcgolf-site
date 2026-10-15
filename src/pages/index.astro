@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import Scorecard from '../components/Scorecard.astro';
+import { event, org, ordinal } from '../data/event';
+import mediaData from '../data/media.json';
+import { media } from '../lib/media';
+
+const hero = mediaData.homePhotos[0];
+const strip = mediaData.homePhotos.slice(1, 7);
+const logos = mediaData.sponsorLogos;
+
+const status = {
+  open: { line: 'Registration is open.', cta: { href: event.zeffyUrl, label: 'Register your team' } },
+  soldout: { line: `Sold out for ${event.year}. Sponsorships are still open.`, cta: { href: '/sponsors/', label: 'Become a sponsor' } },
+  past: {
+    line: `Thank you for a sold-out ${event.year} tournament. ${event.next.dateLabel ? `The ${event.next.year} Classic is ${event.next.dateLabel}.` : `${event.next.year} date coming soon.`}`,
+    cta: { href: '/gallery/', label: `See the ${event.year} photos` },
+  },
+}[event.status];
+---
+<Base>
+  <section class="hero on-dark">
+    <div class="hero__photo">
+      <img src={media(hero.src)} srcset={hero.thumb ? `${media(hero.thumb)} 768w, ${media(hero.src)} 2560w` : undefined}
+           sizes="(min-width: 960px) 55vw, 100vw" width={hero.w} height={hero.h}
+           alt={`Golfers at the ${event.year} AFHC Golf Classic`} fetchpriority="high" />
+    </div>
+    <div class="wrap hero__text">
+      <h1>The {ordinal(event.edition)} Annual AFHC Golf Classic</h1>
+      <p class="hero__lede">A day of golf at {event.course} that funds scholarships and education programs for students in Howard County.</p>
+      <p class="hero__status">{status.line}</p>
+      <div class="hero__actions">
+        <a class="btn" href={status.cta.href}>{status.cta.label}</a>
+        {event.status !== 'open' && <a class="hero__alt" href="/sponsors/">Sponsorship levels</a>}
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap card-slot">
+    <Scorecard />
+  </div>
+
+  <section class="section wrap why">
+    <div>
+      <h2>Every round goes to the classroom</h2>
+      <p>The {org.name} raises money for the educational programs of the {org.chapter}: Alpha Achievers, the Leadership Development Institute, college scholarships, AP Success Grants and more. Since 1975 the foundation and chapter have awarded over $350,000 in scholarships to Howard County students.</p>
+      <a href="/scholarship-program/">What the tournament funds</a>
+    </div>
+    <ul class="why__facts">
+      <li><strong>$350,000+</strong> awarded in scholarships since 1975</li>
+      <li><strong>250–400</strong> Alpha Achievers each school year</li>
+      <li><strong>12</strong> Howard County high schools served</li>
+    </ul>
+  </section>
+
+  {logos.length > 0 && (
+    <section class="section sponsors" aria-labelledby="sp-h">
+      <div class="wrap">
+        <div class="sponsors__head">
+          <h2 id="sp-h">{event.year} sponsors</h2>
+          <a class="btn btn--ghost" href="/sponsors/">Sponsor {event.status === 'past' ? event.next.year : event.year}</a>
+        </div>
+        <ul class="sponsors__grid">
+          {logos.map((l) => (
+            <li><img src={media(l.thumb ?? l.src)} alt="Sponsor logo" loading="lazy" width={l.tw ?? l.w} height={l.th ?? l.h} /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section wrap photos" aria-labelledby="ph-h">
+    <h2 id="ph-h">On the course in {event.year}</h2>
+    <ul class="photos__strip">
+      {strip.map((p) => (
+        <li><img src={media(p.thumb ?? p.src)} alt="" loading="lazy" width={p.tw ?? p.w} height={p.th ?? p.h} /></li>
+      ))}
+    </ul>
+    <a class="btn btn--ghost" href="/gallery/">All {mediaData.gallery.filter((g) => g.src.includes('/2026/')).length} photos</a>
+  </section>
+</Base>
+
+<style>
+  .hero { position: relative; display: grid; overflow: hidden; }
+  .hero__photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 2; background: var(--fairway); }
+  .hero__text { padding-block: 2.5rem 6rem; }
+  .hero h1 { font-size: var(--s6); line-height: 0.92; max-width: 11ch; margin-bottom: 1.25rem; }
+  .hero__lede { font-size: var(--s1); line-height: 1.45; max-width: 34ch; color: #f1eee4; }
+  .hero__status { color: var(--gold); font-style: italic; }
+  .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-top: 1.5rem; }
+  .hero__alt { font-size: var(--s0); }
+
+  .card-slot { margin-top: -3.5rem; position: relative; z-index: 1; }
+
+  .why { display: grid; gap: 2.5rem; align-items: start; }
+  .why__facts { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--black); }
+  .why__facts li { padding: 1rem 0; border-bottom: 1px solid var(--rule); color: var(--muted); }
+  .why__facts strong { display: block; font: 400 var(--s4)/1 var(--display); color: var(--fairway); }
+
+  .sponsors { background: var(--paper); border-block: 1px solid var(--rule); }
+  .sponsors__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 2rem; }
+  .sponsors__head h2 { margin: 0; }
+  .sponsors__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .sponsors__grid li { background: var(--paper); display: grid; place-items: center; padding: 1rem; aspect-ratio: 3 / 2; }
+  .sponsors__grid img { max-height: 100%; width: auto; object-fit: contain; }
+
+  .photos__strip { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .photos__strip img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--rule); }
+
+  @media (min-width: 960px) {
+    .hero { grid-template-columns: 45% 55%; min-height: 34rem; }
+    .hero__text { grid-row: 1; grid-column: 1; width: auto; margin: 0; padding: 4rem 2.5rem 7rem max(var(--gutter), calc((100vw - var(--wrap)) / 2)); align-self: center; }
+    .hero__photo { grid-row: 1; grid-column: 2; }
+    .hero__photo img { aspect-ratio: auto; }
+    .why { grid-template-columns: 3fr 2fr; gap: 5rem; }
+    .photos__strip { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

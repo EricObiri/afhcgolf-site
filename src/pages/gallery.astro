@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import mediaData from '../data/media.json';
+import { media } from '../lib/media';
+import { event } from '../data/event';
+
+// Event photos only (the gallery page also carried its banner image)
+const photos = mediaData.gallery.filter((g) => g.src.includes(`/${event.year}/`));
+---
+<Base title={`${event.year} photos`} description={`Photos from the ${event.year} AFHC Golf Classic at ${event.course}.`}>
+  <header class="wrap section pagehead">
+    <h1>{event.year} photos</h1>
+    <p class="lede">{photos.length} photos from {event.dateLabel} at {event.course}. Select a photo to see it full size.</p>
+  </header>
+
+  <ul class="wrap grid">
+    {photos.map((p, i) => (
+      <li>
+        <a href={media(p.src)} data-i={i}>
+          <img src={media(p.thumb ?? p.src)} width={p.tw ?? p.w} height={p.th ?? p.h}
+               alt={`Photo ${i + 1} of ${photos.length}`} loading={i < 6 ? 'eager' : 'lazy'} decoding="async" />
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <dialog class="lb" aria-label="Photo viewer">
+    <img alt="" />
+    <p class="lb__count" aria-live="polite"></p>
+    <button class="lb__btn lb__prev" type="button" aria-label="Previous photo">&lsaquo;</button>
+    <button class="lb__btn lb__next" type="button" aria-label="Next photo">&rsaquo;</button>
+    <button class="lb__btn lb__close" type="button" aria-label="Close">&times;</button>
+  </dialog>
+</Base>
+
+<style>
+  .pagehead { padding-bottom: 2rem; }
+  .pagehead h1 { font-size: var(--s6); line-height: 0.95; }
+  .lede { font-size: var(--s1); line-height: 1.45; }
+  .grid { list-style: none; padding: 0; margin-block: 0 5rem; columns: 2 12rem; column-gap: 0.5rem; }
+  .grid li { break-inside: avoid; margin-bottom: 0.5rem; }
+  .grid img { width: 100%; background: var(--rule); }
+  .grid a:focus-visible img { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  .lb { border: 0; padding: 0; max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.94); }
+  .lb::backdrop { background: rgba(0, 0, 0, 0.94); }
+  .lb[open] { display: grid; place-items: center; }
+  .lb img { max-width: 92vw; max-height: 86vh; object-fit: contain; }
+  .lb__count { position: absolute; bottom: 1rem; left: 0; right: 0; text-align: center; margin: 0; max-width: none; color: var(--gold); font-family: var(--display); font-size: var(--s1); }
+  .lb__btn { position: absolute; background: none; border: 0; color: #fff; font-size: 3rem; line-height: 1; padding: 0.5rem 1rem; cursor: pointer; }
+  .lb__btn:hover { color: var(--gold); }
+  .lb__prev { left: 0.5rem; top: 50%; transform: translateY(-50%); }
+  .lb__next { right: 0.5rem; top: 50%; transform: translateY(-50%); }
+  .lb__close { top: 0.5rem; right: 0.5rem; }
+</style>
+
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.grid a')];
+  const dlg = document.querySelector<HTMLDialogElement>('.lb')!;
+  const img = dlg.querySelector('img')!;
+  const count = dlg.querySelector('.lb__count')!;
+  let i = 0;
+  const show = (n: number) => {
+    i = (n + links.length) % links.length;
+    img.src = links[i].href;
+    count.textContent = `${i + 1} / ${links.length}`;
+  };
+  links.forEach((a, n) => a.addEventListener('click', (e) => { e.preventDefault(); show(n); dlg.showModal(); }));
+  dlg.querySelector('.lb__prev')!.addEventListener('click', () => show(i - 1));
+  dlg.querySelector('.lb__next')!.addEventListener('click', () => show(i + 1));
+  dlg.querySelector('.lb__close')!.addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', () => links[i]?.focus());
+  document.addEventListener('keydown', (e) => {
+    if (!dlg.open) return;
+    if (e.key === 'ArrowRight') show(i + 1);
+    if (e.key === 'ArrowLeft') show(i - 1);
+  });
+</script>

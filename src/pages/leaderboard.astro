@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { event } from '../data/event';
+// Placeholder until the live leaderboard app is built.
+---
+<Base title="Leaderboard" description="Live scores from the AFHC Golf Classic.">
+  <div class="wrap section lb">
+    <h1>Leaderboard</h1>
+    <p class="lede">Live team scores will appear here on tournament day.</p>
+    <table class="board" aria-label="Leaderboard preview">
+      <thead><tr><th scope="col">Pos</th><th scope="col">Team</th><th scope="col">Thru</th><th scope="col">Score</th></tr></thead>
+      <tbody>
+        {[1, 2, 3].map((n) => (
+          <tr><td>{n}</td><td class="muted">Waiting for tee-off</td><td>–</td><td>–</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p>Until then, see the <a href="/tournament-information/">tournament information</a> or browse the <a href="/gallery/">{event.year} photos</a>.</p>
+  </div>
+</Base>
+
+<style>
+  .lb h1 { font-size: var(--s6); line-height: 0.95; }
+  .lede { font-size: var(--s1); }
+  .board { width: 100%; max-width: 44rem; border-collapse: collapse; margin: 2rem 0; background: var(--paper); border: 2px solid var(--black); }
+  .board th { background: var(--black); color: var(--gold); font: 400 var(--s0)/1 var(--display); text-align: left; padding: 0.7rem 0.9rem; }
+  .board td { padding: 0.8rem 0.9rem; border-top: 1px solid var(--rule); }
+  .board th:nth-child(n+3), .board td:nth-child(n+3) { text-align: right; }
+</style>

@@ -1,0 +1,401 @@
+[
+ {
+  "id": "presenting-sponsor",
+  "name": "Presenting Sponsor",
+  "price": 15000,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "VIP (3) Foursome golf spots (12 golfers)",
+    "sub": [
+     "Exclusive Company Notoriety; Event Opening Remarks",
+     "Premium Lunch Seating for Group",
+     "Special Award and Recognition during the luncheon & Post Golf JEWEL Network Social"
+    ]
+   },
+   {
+    "text": "Designated Seating for 12 at The 52nd Annual Breakfast, Jan 10, 2027"
+   },
+   {
+    "text": "Ten Exclusive Full Size Color Tee Box or Green Signs"
+   },
+   {
+    "text": "Exclusive Company Promotional Banner"
+   },
+   {
+    "text": "Company Name Included in Media Advertisements (9 Months)"
+   },
+   {
+    "text": "Company Name and Logo on websites (9 Months)"
+   },
+   {
+    "text": "Company Name/Logo Std Signage at 8 Tee Box or Greens"
+   },
+   {
+    "text": "Full page (premium space) color program ad"
+   },
+   {
+    "text": "Free insertion of approved branded items in golfer Swag-Bag"
+   }
+  ]
+ },
+ {
+  "id": "corporate-platinum-sponsor",
+  "name": "Corporate Platinum Sponsor",
+  "price": 10000,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "VIP (2) Foursome golf spots (8 golfers)",
+    "sub": [
+     "Premium Lunch Seating for Group",
+     "Award and Recognition during luncheon and Acknowledgement at the Post Golf JEWEL Network Social"
+    ]
+   },
+   {
+    "text": "Designated Seating for 4 at The 52nd Annual Breakfast, Jan 10, 2027"
+   },
+   {
+    "text": "Eight Full Size Color Tee Box or Green Signs"
+   },
+   {
+    "text": "Company Name and Logo Included in Media Advertisements (6 months)"
+   },
+   {
+    "text": "Company Name and Logo on websites (6 months)"
+   },
+   {
+    "text": "Company Name on 10 Std Tee-Box signs and all multi-promotional banners"
+   },
+   {
+    "text": "Full page (premium space) color program ad"
+   },
+   {
+    "text": "Free insertion of limited number of branded items in golfer Swag-Bag"
+   }
+  ]
+ },
+ {
+  "id": "corporate-gold-sponsor",
+  "name": "Corporate Gold Sponsor",
+  "price": 7500,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "VIP (1) Foursome golf spot (4 golfers)",
+    "sub": [
+     "Premium Lunch Seating for Group",
+     "Award and Recognition during luncheon and Acknowledgement at the Post Golf JEWEL Network Social"
+    ]
+   },
+   {
+    "text": "Designated Seating for 4 at The 52nd Annual Breakfast, Jan 10, 2027"
+   },
+   {
+    "text": "Six Full Size Color Tee Box or Green Signs"
+   },
+   {
+    "text": "Company Name and Logo Included in Media Advertisements (6 months)"
+   },
+   {
+    "text": "Company Name and / or Logo on websites (6 months)"
+   },
+   {
+    "text": "Company Name/Logo on 10 Std Tee-Box or Green signs and all multi-promotional banners"
+   },
+   {
+    "text": "Full page (premium space) color program ad"
+   },
+   {
+    "text": "Free insertion of limited number of supplied items in golfer Swag-Bag"
+   }
+  ]
+ },
+ {
+  "id": "corporate-bronze-sponsor",
+  "name": "Corporate Bronze Sponsor",
+  "price": 5000,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "VIP (1) Foursome golf spot (4 golfers)",
+    "sub": [
+     "Premium Lunch Seating for Group",
+     "Award and Recognition during luncheon and Acknowledgement at the Post Golf JEWEL Network Social",
+     "Four Full Size Color Tee Box or Green Signs"
+    ]
+   },
+   {
+    "text": "Company Name and Logo Included in Media Advertisements (4 months)"
+   },
+   {
+    "text": "Company Name and / or Logo on websites (4 months)"
+   },
+   {
+    "text": "Company Name/Logo on 6 Std Tee-Box or Green signs and all multi-promotional banners"
+   },
+   {
+    "text": "3/4 page (premium space) color program ad"
+   },
+   {
+    "text": "Free insertion of limited number of supplied items in golfer Swag-Bag"
+   }
+  ]
+ },
+ {
+  "id": "executive-sponsor",
+  "name": "Executive Sponsor (JEWEL Network Social)",
+  "price": 3500,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "(1) foursome golf team (4 golfers)",
+    "sub": [
+     "Exclusivity for the Post Golf “Joint Event Of Winners, Excellence & Legacy” (JEWEL) Network Social",
+     "Premium Lunch Seating for Group",
+     "Award and Recognition"
+    ]
+   },
+   {
+    "text": "Two Color exclusive Tee Box or Green Signs"
+   },
+   {
+    "text": "Company Name and Logo Included in Media Advertisements (4 months)"
+   },
+   {
+    "text": "Company Name and / or Logo on websites (4 months)"
+   },
+   {
+    "text": "Company Name/Logo 2 Std Tee Box or Green Signs and all multi-promotional banners"
+   },
+   {
+    "text": "Up to ¾-page (premium space) color program ad"
+   },
+   {
+    "text": "Free insertion of limited number of supplied items in golfer Swag-Bag"
+   }
+  ]
+ },
+ {
+  "id": "media-sponsor",
+  "name": "Media Sponsor",
+  "price": 2750,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "Invite a couple Golf Buddies! Includes you and 2 others (3 golfers)",
+    "sub": [
+     "Special Acknowledgment"
+    ]
+   },
+   {
+    "text": "Up to 1/2-page color program ad"
+   },
+   {
+    "text": "One Exclusive Color Tee Box or Green Sign"
+   },
+   {
+    "text": "Company Name and Logo on all multi-promotional banners"
+   },
+   {
+    "text": "Company Name and Logo included in digital media announcements (9 months)"
+   },
+   {
+    "text": "Company Name and Logo on website (9 months)"
+   },
+   {
+    "text": "Post Golf JEWEL Network Social Gift Card (Oscar’s Ale House, $100 Value)"
+   }
+  ]
+ },
+ {
+  "id": "culinary-sponsor",
+  "name": "Culinary Food Sponsor",
+  "price": 2500,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "Bring that Golf Buddy! Includes you and 1 other (2 golfers)"
+   },
+   {
+    "text": "Premier Lunch Seating and Special Recognition"
+   },
+   {
+    "text": "Up to 1/2-page color program ad"
+   },
+   {
+    "text": "Two Tee Box or Green Signs"
+   },
+   {
+    "text": "Company Name and Logo Included in digital media announcements (4 months)"
+   },
+   {
+    "text": "Company Name and Logo on website for (4 months)"
+   },
+   {
+    "text": "Post Golf JEWEL Network Social Gift Card (Oscar’s Ale House, $75.00 Value)"
+   }
+  ]
+ },
+ {
+  "id": "tournament-ball-sponsor",
+  "name": "Tournament Ball Sponsor",
+  "price": 2000,
+  "note": "Only one available",
+  "description": null,
+  "benefits": [
+   {
+    "text": "Each Tournament Golfer receives 1 boxed sleeve of Golf Balls with Your Company Name / Logo"
+   },
+   {
+    "text": "You Get Category Exclusivity & Unique Company Exposure"
+   },
+   {
+    "text": "One Color Company Name and Logo Sign"
+   },
+   {
+    "text": "1/4-page color program ad"
+   },
+   {
+    "text": "Company Name and Logo on website for 6 months"
+   },
+   {
+    "text": "Post Golf JEWEL Network Social Gift Card (Oscar’s Ale House, $50.00 Value)"
+   }
+  ]
+ },
+ {
+  "id": "contest-sponsor",
+  "name": "Golf Contest Sponsor",
+  "price": 1250,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "Exclusive ”Contest sponsored by” Company Name and Logo color sign",
+    "sub": [
+     "Contest Examples - closest to Pin, Longest Drive"
+    ]
+   },
+   {
+    "text": "You Get Category Exclusivity, Company Exposure and Special Acknowledgement"
+   },
+   {
+    "text": "Company Name and Logo on website for 6 months"
+   },
+   {
+    "text": "1/4-page color program ad"
+   },
+   {
+    "text": "Post Golf JEWEL Network Social Gift Card (Oscar’s Ale House, $25.00 Value)"
+   }
+  ]
+ },
+ {
+  "id": "wounded-warrior-sponsor",
+  "name": "Wounded Warrior Sponsor",
+  "price": 975,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "VIP (1) Veteran or Wounded Warrior foursome golf team (4 golfers)"
+   },
+   {
+    "text": "Premier Lunch Seating and Recognition"
+   },
+   {
+    "text": "Up to 1/2-page color program ad"
+   },
+   {
+    "text": "Two Tee Box or Green Signs"
+   },
+   {
+    "text": "Company Name and Logo Included in digital media announcements",
+    "sub": [
+     "Company Name and Logo on website (9 months)"
+    ]
+   },
+   {
+    "text": "Post Golf JEWEL Network Social Gift Cards (Oscar’s Ale House, 4 x $15.00 Value)"
+   }
+  ]
+ },
+ {
+  "id": "foursome-sponsor-donation",
+  "name": "Foursome Sponsor Donation",
+  "price": 680,
+  "note": null,
+  "description": "Can't play but want to give the game to someone who will? Donate a foursome, and name the recipients in the comments field at checkout.",
+  "benefits": []
+ },
+ {
+  "id": "hole-sponsor",
+  "name": "Hole Sponsor",
+  "price": 200,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "One Tee Box or Green Sign (Rep your Company, College, or Fraternity)"
+   },
+   {
+    "text": "Post Golf JEWEL Network Social Gift Card (Oscar’s Ale House, $10.00 Value)"
+   },
+   {
+    "text": "Recognition in Program media"
+   }
+  ]
+ },
+ {
+  "id": "non-golfer-attendance-sponsor",
+  "name": "Non-Golfer Attendance Sponsor",
+  "price": 100,
+  "note": null,
+  "description": null,
+  "benefits": [
+   {
+    "text": "Attend or Gift someone Lunch"
+   },
+   {
+    "text": "Includes Access to the Post Golf JEWEL Network Social"
+   },
+   {
+    "text": "Post Golf JEWEL Network Social Gift Card (Oscar’s Ale House, $5.00 Value)"
+   },
+   {
+    "text": "Recognition in Program media"
+   }
+  ]
+ },
+ {
+  "id": "jewel-network-social",
+  "name": "JEWEL Network Social only",
+  "price": 40,
+  "note": "Begins at 4 pm",
+  "description": null,
+  "benefits": [
+   {
+    "text": "Attend or Gift someone an opportunity to enjoy our Post Golf JEWEL Network Social Event."
+   },
+   {
+    "text": "We'll serve the Hors d'oeuvres, so bring a Cigar, relax and engage in some great networking opportunities."
+   }
+  ]
+ },
+ {
+  "id": "black-and-gold-donation",
+  "name": "Black and Gold Donation",
+  "price": null,
+  "note": "Any amount, and it can be dedicated in memory of someone",
+  "description": "Support the Alpha Foundation of Howard County with a gift of any size. Add a dedication such as “In memory of…” in the message field, and say whether you'd like to stay anonymous. Non-anonymous dedications are listed on this website.",
+  "benefits": []
+ }
+]

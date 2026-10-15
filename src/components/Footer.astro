@@ -1,0 +1,31 @@
+---
+import { org } from '../data/event';
+const year = new Date().getFullYear();
+---
+<footer class="ftr on-dark">
+  <div class="wrap ftr__in">
+    <div>
+      <p class="ftr__name">{org.name}</p>
+      <p>{org.mailing}</p>
+      <p>The tournament supports the educational programs of {org.chapter}.</p>
+    </div>
+    <ul class="ftr__links">
+      <li><a href={org.foundationUrl}>Alpha Foundation of Howard County</a></li>
+      {org.social.map((s) => <li><a href={s.url}>{s.label}</a></li>)}
+      <li><a href="/contact-us/">Contact us</a></li>
+    </ul>
+  </div>
+  <div class="wrap ftr__base">
+    <p>&copy; {year} {org.name} All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .ftr { border-top: 6px solid var(--gold); padding-top: 3rem; font-size: var(--s-1); }
+  .ftr__in { display: grid; gap: 2rem; }
+  .ftr__name { font: 400 var(--s2)/1.1 var(--display); color: var(--gold); margin-bottom: 0.5rem; }
+  .ftr__links { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+  .ftr__base { border-top: 1px solid #3a3a3a; margin-top: 2.5rem; padding-block: 1.25rem 2rem; color: #a9a597; }
+  .ftr__base p { margin: 0; }
+  @media (min-width: 760px) { .ftr__in { grid-template-columns: 2fr 1fr; } }
+</style>

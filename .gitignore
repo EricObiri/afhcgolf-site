@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+# media comes from S3/CloudFront, never commit it
+public/uploads/
+.amplify/
+amplify_outputs.json

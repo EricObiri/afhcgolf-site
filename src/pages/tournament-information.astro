@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { event, org } from '../data/event';
+---
+<Base title="Tournament information" description={`Schedule, fees, format and prizes for the ${event.year} AFHC Golf Classic at ${event.course}.`}>
+  <header class="wrap section pagehead">
+    <h1>Tournament information</h1>
+    <p class="lede">{event.dateLabel} at {event.course}, {event.courseTown}. Four-person teams, captain's choice.</p>
+  </header>
+
+  <div class="wrap info">
+    <section aria-labelledby="day-h" class="info__day">
+      <h2 id="day-h">The day</h2>
+      <ol class="timeline">
+        {event.schedule.map((s) => (
+          <li><time>{s.time}</time><span>{s.what}</span></li>
+        ))}
+      </ol>
+    </section>
+
+    <section aria-labelledby="register" class="info__fees on-dark">
+      <h2 id="register">Registration</h2>
+      <p class="fee"><strong>${event.fees.team}</strong> per four-person team</p>
+      <p class="fee"><strong>${event.fees.golfer}</strong> per golfer</p>
+      <p class="small">After {event.fees.lateAfter}: ${event.fees.lateTeam} per team or ${event.fees.lateGolfer} per golfer. Registration closes {event.fees.closes}.</p>
+      <p class="small">Includes {event.includes.join(', ').toLowerCase()}.</p>
+      {event.status === 'open' && <a class="btn" href={event.zeffyUrl}>Register on Zeffy</a>}
+      {event.status === 'soldout' && <p><strong>Sold out for {event.year}.</strong> <a href="/sponsors/">Sponsorships are still open.</a></p>}
+      {event.status === 'past' && <p><strong>The {event.year} tournament has been played.</strong> {event.next.year} details will be posted here. <a href="/contact-us/">Ask to be notified.</a></p>}
+    </section>
+  </div>
+
+  <section class="wrap section" aria-labelledby="fmt-h"><div class="prose">
+    <h2 id="fmt-h">Format: captain's choice scramble</h2>
+    <p>Every player tees off, and the team picks the best shot. All four play their next shot from that spot, and so on until the ball is holed. You may place the ball within one club-length of the chosen spot, but no nearer the hole.</p>
+    <h3>Mulligans</h3>
+    <p>One mulligan per golfer on the front nine and one on the back nine, eight per team in total. Mulligans can be used on the putting green.</p>
+    <h3>Tee boxes</h3>
+    <table class="tees">
+      <thead><tr><th scope="col">Players</th><th scope="col">Tee</th><th scope="col">Yards</th></tr></thead>
+      <tbody>
+        {event.teeBoxes.map((t) => (
+          <tr><td>{t.who}</td><td><span class={`dot dot--${t.tee.toLowerCase()}`} aria-hidden="true"></span>{t.tee}</td><td>{t.yards.toLocaleString()}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <h3>Prizes</h3>
+    <ul>{event.prizes.map((p) => <li>{p}</li>)}</ul>
+    <p class="muted">The tournament supports the educational programs of {org.chapter}.</p>
+  </div></section>
+</Base>
+
+<style>
+  .pagehead { padding-bottom: 2rem; }
+  .pagehead h1 { font-size: var(--s6); line-height: 0.95; }
+  .lede { font-size: var(--s1); line-height: 1.45; }
+  .info { display: grid; gap: 2rem; }
+  .timeline { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--fairway); }
+  .timeline li { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.75rem 0 0.75rem 1.25rem; position: relative; }
+  .timeline li::before { content: ''; position: absolute; left: -0.55rem; top: 1.2rem; width: 0.8rem; height: 0.8rem; background: var(--gold); border: 2px solid var(--black); border-radius: 50%; }
+  .timeline time { font: 400 var(--s1)/1.2 var(--display); color: var(--fairway); }
+  .info__fees { padding: 2rem; align-self: start; }
+  .fee { margin: 0 0 0.25rem; }
+  .fee strong { font: 400 var(--s4)/1 var(--display); color: var(--gold); margin-right: 0.4rem; }
+  .small { font-size: var(--s-1); color: #cfcabb; margin-top: 1rem; }
+  .tees { border-collapse: collapse; width: 100%; max-width: 30rem; margin-bottom: 1.5rem; }
+  .tees th, .tees td { text-align: left; padding: 0.55rem 0.75rem; border-bottom: 1px solid var(--rule); }
+  .tees th { font: 400 var(--s0)/1 var(--display); background: var(--black); color: var(--gold); }
+  .tees td:last-child, .tees th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+  .dot { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; margin-right: 0.5em; border: 1px solid var(--black); vertical-align: -0.05em; }
+  .dot--white { background: #fff; } .dot--gold { background: var(--gold); } .dot--red { background: #c0392b; }
+  @media (min-width: 960px) { .info { grid-template-columns: 3fr 2fr; gap: 4rem; } }
+</style>
