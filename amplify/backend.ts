@@ -23,8 +23,6 @@ fn.addToRolePolicy(new PolicyStatement({
   actions: ['ses:SendEmail'],
   resources: [`arn:aws:ses:${backend.stack.region}:${backend.stack.account}:identity/afhcgolf.net`],
 }));
-// Cap concurrency so a spam burst can't run up costs or SES volume.
-backend.contact.resources.cfnResources.cfnFunction.reservedConcurrentExecutions = 2;
 
 /* ---------- Media: private S3 bucket behind CloudFront ---------- */
 const mediaStack = backend.createStack('media');
