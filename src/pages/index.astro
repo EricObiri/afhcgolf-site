@@ -95,17 +95,21 @@ const status = {
   .hero__photo { position: relative; overflow: hidden; container-type: size; aspect-ratio: 16 / 9; background: var(--black); }
   .hero__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  /* Dark layer over the photo/video. Raise --veil for darker (0 = none, 1 = black). */
+  /* Colour tint over the video. Swap --tint for another colour:
+       fairway green  22, 58, 36   (default)
+       deep teal      10, 62, 66
+       dark mustard   96, 74, 12
+     --veil is the strength: 0 = none, 0.6 = strong. */
+  .hero__photo { --tint: 22, 58, 36; --veil: 0.45; }
   .hero__veil {
-    --veil: 0.35;
     position: absolute; inset: 0; pointer-events: none;
     background:
-      linear-gradient(to bottom, transparent 55%, var(--black) 100%),
-      rgba(0, 0, 0, var(--veil));
+      linear-gradient(to bottom, transparent 60%, var(--black) 100%),
+      rgba(var(--tint), var(--veil));
   }
-  /* Brief fade to black at the loop point hides the restart. */
-  .hero__dip { position: absolute; inset: 0; background: var(--black); opacity: 0; pointer-events: none; transition: opacity 0.45s ease; }
-  .hero__dip.is-on { opacity: 0.92; }
+  /* Brief fade to the tint colour at the loop point hides the restart. */
+  .hero__dip { position: absolute; inset: 0; background: rgb(var(--tint)); opacity: 0; pointer-events: none; transition: opacity 0.45s ease; }
+  .hero__dip.is-on { opacity: 0.95; }
   @media (prefers-reduced-motion: reduce) { .hero__video, .hero__dip { display: none; } }
   .hero__text { padding-block: 2.5rem 6rem; }
   .hero h1 { font-size: var(--s6); line-height: 0.92; max-width: 11ch; margin-bottom: 1.25rem; }
@@ -136,11 +140,7 @@ const status = {
     .hero__text { grid-row: 1; grid-column: 1; width: auto; margin: 0; padding: 4rem 2.5rem 7rem max(var(--gutter), calc((100vw - var(--wrap)) / 2)); align-self: center; }
     .hero__photo { grid-row: 1; grid-column: 2; }
     .hero__photo { aspect-ratio: auto; }
-    .hero__veil {
-      background:
-        linear-gradient(to right, var(--black) 0%, rgba(0, 0, 0, 0.5) 18%, transparent 45%),
-        rgba(0, 0, 0, var(--veil));
-    }
+    .hero__veil { background: rgba(var(--tint), var(--veil)); }
     .why { grid-template-columns: 3fr 2fr; gap: 5rem; }
     .photos__strip { grid-template-columns: repeat(3, 1fr); }
   }
