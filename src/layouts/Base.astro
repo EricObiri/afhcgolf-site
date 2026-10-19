@@ -2,11 +2,11 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { event, org, ordinal } from '../data/event';
+import { org, ordinal, featured } from '../data/event';
 
 interface Props { title?: string; description?: string; }
 const { title, description } = Astro.props;
-const siteName = `${ordinal(event.edition)} Annual AFHC Golf Classic`;
+const siteName = `${ordinal(featured.edition)} Annual AFHC Golf Classic`;
 const fullTitle = title ? `${title} | AFHC Golf Classic` : siteName;
 const desc = description ?? `The ${siteName}, raising scholarship and education funds for students in Howard County, Maryland. Hosted by the ${org.name}.`;
 ---

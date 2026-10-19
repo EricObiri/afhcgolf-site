@@ -51,7 +51,7 @@ export const event = {
     'Additional prize raffles',
   ],
   // Next event, shown when status is 'past'. Leave dateLabel empty until it's set.
-  next: { year: 2027, dateLabel: '' },
+  next: { year: 2027, edition: 20, date: '2027-06-14', dateLabel: 'Monday, June 14, 2027', dateShort: 'June 14, 2027' },
 };
 
 export const org = {
@@ -67,6 +67,12 @@ export const org = {
     { label: 'X (Twitter)', url: 'https://twitter.com/AlphasKPL_HoCo' },
   ],
 };
+
+/** The tournament the site is promoting: next year's once this year's is over. */
+export const featured =
+  event.status === 'past'
+    ? { edition: event.next.edition, year: event.next.year }
+    : { edition: event.edition, year: event.year };
 
 export const ordinal = (n: number) => {
   const s = ['th', 'st', 'nd', 'rd'], v = n % 100;

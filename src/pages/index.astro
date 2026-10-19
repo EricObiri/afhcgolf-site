@@ -1,11 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Scorecard from '../components/Scorecard.astro';
-import { event, org, ordinal } from '../data/event';
+import { event, org, ordinal, featured } from '../data/event';
 import mediaData from '../data/media.json';
 import { media } from '../lib/media';
 
 const hero = mediaData.homePhotos[0];
+// Background video: silent MP4 in the media bucket. Set to '' to show the photo only.
+const heroVideo = '/uploads/video/hero.mp4';
 const strip = mediaData.homePhotos.slice(1, 7);
 const logos = mediaData.sponsorLogos;
 
@@ -24,9 +26,17 @@ const status = {
       <img src={media(hero.src)} srcset={hero.thumb ? `${media(hero.thumb)} 768w, ${media(hero.src)} 2560w` : undefined}
            sizes="(min-width: 960px) 55vw, 100vw" width={hero.w} height={hero.h}
            alt={`Golfers at the ${event.year} AFHC Golf Classic`} fetchpriority="high" />
+      {heroVideo && (
+        <video class="hero__video" autoplay muted playsinline preload="auto"
+               poster={media(hero.thumb ?? hero.src)} aria-hidden="true">
+          <source src={media(heroVideo)} type="video/mp4" />
+        </video>
+      )}
+      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__dip" aria-hidden="true"></div>
     </div>
     <div class="wrap hero__text">
-      <h1>The {ordinal(event.edition)} Annual AFHC Golf Classic</h1>
+      <h1>The {ordinal(featured.edition)} Annual AFHC Golf Classic</h1>
       <p class="hero__lede">A day of golf at {event.course} that funds scholarships and education programs for students in Howard County.</p>
       <p class="hero__status">{status.line}</p>
       <div class="hero__actions">
@@ -82,7 +92,21 @@ const status = {
 
 <style>
   .hero { position: relative; display: grid; overflow: hidden; }
-  .hero__photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 2; background: var(--fairway); }
+  .hero__photo { position: relative; overflow: hidden; container-type: size; aspect-ratio: 16 / 9; background: var(--black); }
+  .hero__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* Dark layer over the photo/video. Raise --veil for darker (0 = none, 1 = black). */
+  .hero__veil {
+    --veil: 0.35;
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(to bottom, transparent 55%, var(--black) 100%),
+      rgba(0, 0, 0, var(--veil));
+  }
+  /* Brief fade to black at the loop point hides the restart. */
+  .hero__dip { position: absolute; inset: 0; background: var(--black); opacity: 0; pointer-events: none; transition: opacity 0.45s ease; }
+  .hero__dip.is-on { opacity: 0.92; }
+  @media (prefers-reduced-motion: reduce) { .hero__video, .hero__dip { display: none; } }
   .hero__text { padding-block: 2.5rem 6rem; }
   .hero h1 { font-size: var(--s6); line-height: 0.92; max-width: 11ch; margin-bottom: 1.25rem; }
   .hero__lede { font-size: var(--s1); line-height: 1.45; max-width: 34ch; color: #f1eee4; }
@@ -111,8 +135,29 @@ const status = {
     .hero { grid-template-columns: 45% 55%; min-height: 34rem; }
     .hero__text { grid-row: 1; grid-column: 1; width: auto; margin: 0; padding: 4rem 2.5rem 7rem max(var(--gutter), calc((100vw - var(--wrap)) / 2)); align-self: center; }
     .hero__photo { grid-row: 1; grid-column: 2; }
-    .hero__photo img { aspect-ratio: auto; }
+    .hero__photo { aspect-ratio: auto; }
+    .hero__veil {
+      background:
+        linear-gradient(to right, var(--black) 0%, rgba(0, 0, 0, 0.5) 18%, transparent 45%),
+        rgba(0, 0, 0, var(--veil));
+    }
     .why { grid-template-columns: 3fr 2fr; gap: 5rem; }
     .photos__strip { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
+
+<script>
+  // Seamless-looking loop: dip to black just before the end, restart, fade back in.
+  const v = document.querySelector<HTMLVideoElement>('.hero__video');
+  const dip = document.querySelector<HTMLElement>('.hero__dip');
+  if (v && dip) {
+    const LEAD = 0.5; // seconds before the end to start the fade
+    v.addEventListener('timeupdate', () => {
+      if (v.duration && v.duration - v.currentTime < LEAD) dip.classList.add('is-on');
+    });
+    v.addEventListener('ended', () => { v.currentTime = 0; v.play().catch(() => {}); });
+    v.addEventListener('seeked', () => {
+      if (v.currentTime < 0.2) setTimeout(() => dip.classList.remove('is-on'), 150);
+    });
+  }
+</script>
