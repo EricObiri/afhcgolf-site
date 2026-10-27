@@ -1,8 +1,12 @@
-import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 import { validate } from './validate.mjs';
 
-const ses = new SESv2Client({});
-const { CONTACT_TO = '', CONTACT_FROM = '' } = process.env;
+// Sends contact-form messages through Brevo's transactional email API.
+const {
+  CONTACT_TO = '',
+  CONTACT_FROM_EMAIL = '',
+  CONTACT_FROM_NAME = 'AFHC Golf Classic',
+  BREVO_API_KEY = '',
+} = process.env;
 
 type UrlEvent = { body?: string; isBase64Encoded?: boolean; requestContext?: { http?: { method?: string; sourceIp?: string } } };
 const reply = (statusCode: number, body: object) => ({ statusCode, headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
@@ -34,14 +38,20 @@ export const handler = async (event: UrlEvent) => {
     `Sent from the contact form on afhcgolf.net (IP ${event.requestContext?.http?.sourceIp ?? 'unknown'}).`,
   ].filter((l) => l !== null).join('\n');
 
-  await ses.send(new SendEmailCommand({
-    FromEmailAddress: CONTACT_FROM,
-    Destination: { ToAddresses: [CONTACT_TO] },
-    ReplyToAddresses: [d.email],
-    Content: { Simple: {
-      Subject: { Data: `[AFHC Golf] ${d.topic}: ${d.name}`, Charset: 'UTF-8' },
-      Body: { Text: { Data: text, Charset: 'UTF-8' } },
-    } },
-  }));
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': BREVO_API_KEY, 'content-type': 'application/json', accept: 'application/json' },
+    body: JSON.stringify({
+      sender: { name: CONTACT_FROM_NAME, email: CONTACT_FROM_EMAIL },
+      to: [{ email: CONTACT_TO }],
+      replyTo: { email: d.email, name: d.name },
+      subject: `[AFHC Golf] ${d.topic}: ${d.name}`,
+      textContent: text,
+    }),
+  });
+  if (!res.ok) {
+    console.error('Brevo send failed', res.status, await res.text());
+    return reply(502, { error: 'Message could not be sent.' });
+  }
   return reply(200, { ok: true });
 };

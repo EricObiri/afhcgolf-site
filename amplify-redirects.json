@@ -1,5 +1,10 @@
 [
   {
+    "source": "https://afhcgolf.net",
+    "target": "https://www.afhcgolf.net",
+    "status": "301"
+  },
+  {
     "source": "/home-2/",
     "target": "/",
     "status": "301"

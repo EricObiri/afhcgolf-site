@@ -1,7 +1,6 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
 import { FunctionUrlAuthType, HttpMethod } from 'aws-cdk-lib/aws-lambda';
-import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { BlockPublicAccess, Bucket, BucketEncryption } from 'aws-cdk-lib/aws-s3';
 import { AllowedMethods, CachePolicy, Distribution, PriceClass, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { S3BucketOrigin } from 'aws-cdk-lib/aws-cloudfront-origins';
@@ -9,20 +8,16 @@ import { contact } from './functions/contact/resource';
 
 const backend = defineBackend({ contact });
 
-/* ---------- Contact form: Lambda function URL -> SES ---------- */
+/* ---------- Contact form: Lambda function URL -> Brevo ---------- */
 const fn = backend.contact.resources.lambda;
 const contactUrl = fn.addFunctionUrl({
   authType: FunctionUrlAuthType.NONE,
   cors: {
-    allowedOrigins: ['https://afhcgolf.net', 'https://www.afhcgolf.net', 'http://localhost:4321'],
+    allowedOrigins: ['https://www.afhcgolf.net', 'https://afhcgolf.net', 'http://localhost:4321'],
     allowedMethods: [HttpMethod.POST],
     allowedHeaders: ['content-type'],
   },
 });
-fn.addToRolePolicy(new PolicyStatement({
-  actions: ['ses:SendEmail'],
-  resources: [`arn:aws:ses:${backend.stack.region}:${backend.stack.account}:identity/afhcgolf.net`],
-}));
 
 /* ---------- Media: private S3 bucket behind CloudFront ---------- */
 const mediaStack = backend.createStack('media');

@@ -6,7 +6,7 @@ import { defineConfig } from 'astro/config';
 import redirects from './redirects.json' with { type: 'json' };
 
 export default defineConfig({
-  site: 'https://afhcgolf.net',
+  site: 'https://www.afhcgolf.net',
   trailingSlash: 'always',
   build: { format: 'directory' },
   redirects: Object.fromEntries(redirects.map((r) => [r.from, r.to])),
